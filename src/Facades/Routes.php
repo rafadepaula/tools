@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rafadepaula\Facade\Tools;
+namespace Rafadepaula\Tools\Facades;
 
 
 use Illuminate\Support\Facades\Route;
