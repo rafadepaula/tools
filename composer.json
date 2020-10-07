@@ -13,9 +13,12 @@
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
-          "providers": [
-            "Rafadepaula//Tools//ToolsServiceProvider"
-          ]
+            "providers": [
+                "Rafadepaula//Tools//ToolsServiceProvider"
+            ],
+            "aliases": {
+                "Tools": "Rafadepaula//Tools//Facade"
+            }
         }
       }
 }

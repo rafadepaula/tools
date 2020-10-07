@@ -1,6 +1,6 @@
 <?php
 
-namespace Rafadepaula\Tools\Traits;
+namespace Rafadepaula\Tools\Facade\Traits;
 
 
 use Illuminate\Database\Eloquent\Collection;

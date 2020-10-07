@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rafadepaula\Tools;
+namespace Rafadepaula\Facade\Tools;
 
 
 use Illuminate\Support\Facades\Storage;
