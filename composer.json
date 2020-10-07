@@ -14,10 +14,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rafadepaula//Tools//ToolsServiceProvider"
+                "Rafadepaula\\Tools\\ToolsServiceProvider"
             ],
             "aliases": {
-                "Tools": "Rafadepaula//Tools//Facade"
+                "Tools": "Rafadepaula\\Tools\\Facade"
             }
         }
       }
