@@ -1,0 +1,28 @@
+html{
+    font-size: inherit!important;
+}
+.app-page-title{
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+.delete-media{
+    cursor: pointer;
+}
+.input-group-addon, .input-group-btn {
+    width: auto;
+}
+.note-group-select-from-files {
+    display: none!important;
+}
+.dataTables_wrapper{
+    display: block!important;
+}
+.dataTables_length label, .dataTables_filter label {
+    display: inline-block!important;
+}
+.dataTables_length label select{
+    height: calc(2.25rem + 2px)!important;
+}
+.dataTables_paginate .pagination{
+    display: inline-block!important;
+}

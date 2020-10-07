@@ -1,0 +1,13 @@
+{
+    "name": "rafadepaula/tools",
+    "description": "Ferramentas para meus freelas",
+    "authors": [
+        {
+            "name": "Rafael de Paula",
+            "email": "rafaelbg97@live.com"
+        }
+    ],
+    "require": {
+        "laracasts/flash": "^3.2"
+    }
+}
