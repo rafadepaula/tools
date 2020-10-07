@@ -10,6 +10,11 @@
     "require": {
         "laracasts/flash": "^3.2"
     },
+    "autoload": {
+        "psr-4": {
+           "Rafadepaula\\Tools": "rafadepaula/tools/src"
+        }
+    },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
