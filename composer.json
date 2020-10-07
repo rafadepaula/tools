@@ -10,5 +10,12 @@
     "require": {
         "laracasts/flash": "^3.2"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+          "providers": [
+            "Rafadepaula//Tools//ToolsServiceProvider"
+          ]
+        }
+      }
 }
