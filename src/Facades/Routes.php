@@ -9,6 +9,24 @@ use Illuminate\Support\Facades\Route;
 class Routes
 {
 
+	protected static $debug;
+	protected static $registered = [];
+
+	public static function enableDebug()
+	{
+		self::$debug = true;
+	}
+
+	public static function registerDebug($route){
+		self::$registered[$route['method']][] = $route;
+	}
+
+	public static function getDebug($print = false){
+		if($print)
+			print_r(self::$registered);
+		return self::$registered;
+	}
+
 	/**
 	 * Formato:
 	 * [
@@ -39,15 +57,34 @@ class Routes
 				$urls = !empty($opts[$method]) ? $opts[$method] : [];
 				if($defaultCrud)
 					$urls = self::mergeDefaultCrud($urls, $method);
+
 				if(!empty($urls)){
 					foreach($urls as $urlOpts){
 						$url = $prefix.$urlOpts[0];
 						$action = $controller.'Controller@'.self::dashesToCamelCase($urlOpts[1]);
 						$name = $prefixName.'_'.$urlOpts[1];
-						if($withModel)
+						if($withModel) {
 							Route::{$method}($url, $action)->defaults('model', $model)->name($name);
-						else
+							if(self::$debug) {
+								self::registerDebug([
+									'method' => $method,
+									'url' => $url,
+									'action' => $action,
+									'model' => $model,
+									'name' => $name,
+								]);
+							}
+						}else {
 							Route::{$method}($url, $action)->name($name);
+							if(self::$debug) {
+								self::registerDebug([
+									'method' => $method,
+									'url' => $url,
+									'action' => $action,
+									'name' => $name,
+								]);
+							}
+						}
 					}
 				}
 			}
