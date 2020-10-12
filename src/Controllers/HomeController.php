@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Rafadepaula\Tools\Functions;
+use Rafadepaula\Tools\Facades\Functions;
 
 class HomeController extends Controller
 {
