@@ -66,19 +66,6 @@
                                     	'type' => 'password']
                                  )
                             </div>
-                            @if($user->type == 'M' || empty($user->id))
-                                <div class="col-12">
-                                    @include(
-                                        'elements.form.select',
-                                         [
-                                            'label' => 'Cidades moderadas', 'name' => 'cities', 'class' => 'select2-init',
-                                            'value' => $user->cities()->pluck('id')->toArray() ?? null,
-                                            'multiple' => 'multiple',
-                                            'options' => $cities,
-                                        ]
-                                     )
-                                </div>
-                            @endif
                         </div>
                         @include('elements.form.submit')
                     </form>

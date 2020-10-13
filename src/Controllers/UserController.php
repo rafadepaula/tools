@@ -68,14 +68,18 @@ class UserController extends Controller
 		$user = User::updateOrCreate(['id' => $id], $fields);
 
 		flash('Usuário '.$user->email.' salvo com sucesso.', 'success');
-		return $this->index();
+		return redirect('user_index');
 	}
 
 	public function delete($id)
 	{
 		$user = User::findOrFail($id);
+		if($user->id == Auth::user()->id){
+			flash('Não é possível deletar o usuário atual.', 'danger');
+			return redirect('user_index');
+		}
 		$user->delete();
 		flash('Usuario '.$user->email.' deletado com sucesso.', 'success');
-		return $this->index();
+		return redirect('user_index');
 	}
 }
