@@ -26,7 +26,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <div class="logo-src">Adm. do Portal</div>
+                <div class="logo-src">Administração</div>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -66,9 +66,16 @@
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{route('logout')}}">
-                                                <button type="button" tabindex="0" class="dropdown-item">Logout</button>
-                                            </a>
+                                            <!-- Authentication -->
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+
+                                                <button class="dropdown-item" href="{{ route('logout') }}"
+                                                                     onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                                    {{ __('Logout') }}
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

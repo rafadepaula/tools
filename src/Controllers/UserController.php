@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -39,9 +40,10 @@ class UserController extends Controller
 	public function validateParams(Request $request, $id)
 	{
 		$uniqueRule = '|unique:users,email'.(!empty($id) ? ','.$id : '');
+		$reqPassword = empty($id) ? 'required' : 'nullable';
 		$rules = [
 			'email' => 'required|email|max:255'.$uniqueRule,
-			'password' => 'nullable|confirmed',
+			'password' => $reqPassword.'|confirmed',
 		];
 		$messages = [
 			'required' => 'O atributo :attribute é obrigatório',
@@ -60,10 +62,13 @@ class UserController extends Controller
 			return;
 		$fields = $request->all();
 
-		if(empty($id))
+		if(!empty($fields['password'])) {
+			$fields['passwordPlain'] = $fields['password'];
 			$fields['password'] = Hash::make($fields['password']);
-		else
+		}else {
 			unset($fields['password']);
+		}
+		unset($fields['password_confirmation']);
 
 		$user = User::updateOrCreate(['id' => $id], $fields);
 

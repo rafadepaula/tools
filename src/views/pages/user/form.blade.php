@@ -39,12 +39,11 @@
                             </div>
                             <div class="col-md-6">
                                 @include(
-                                    'elements.form.select',
+                                    'elements.form.input',
                                      [
-                                     	'label' => 'Tipo', 'name' => 'type',
-                                        'value' => $user->type ?? null,
+                                     	'label' => 'Nome', 'name' => 'name',
+                                        'value' => $user->name ?? null,
                                         'required' => 'required',
-                                        'options' => ['A' => 'Administrador', 'M' => 'Moderador']
                                     ]
                                  )
                             </div>
