@@ -11,7 +11,14 @@
                         'icon' => 'pe-7s-graph',
                         'text' => 'Dashboard'
                     ]
-                ]
+                ],
+				'Administração' => [
+					[
+						'route' => 'user_index',
+						'icon' => 'pe-7s-users',
+						'text' => 'Administradores'
+					]
+				]
             ]
         ]
     ];
