@@ -23,7 +23,7 @@ class ToolsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		$this->loadViewsFrom(__DIR__.'/views', 'rafadepaula');
+		$this->loadViewsFrom(__DIR__.'/components', 'rafadepaula');
 		$this->publishes([
 			__DIR__.'/views' => resource_path('views'),
 			__DIR__.'/Controllers' => app_path('Http/Controllers'),
@@ -32,5 +32,8 @@ class ToolsServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__.'/assets' => public_path(),
 		], 'public');
+		$this->publishes(([
+			__DIR__.'/config/menu.php' => config_path('menu.php'),
+		]));
     }
 }

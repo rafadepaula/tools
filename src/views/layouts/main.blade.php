@@ -112,7 +112,7 @@
                 </div>
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
-                        @include('elements.menu')
+                        {!! \Rafadepaula\Tools\Facades\Menu::generate() !!}
                     </div>
                 </div>
             </div>
