@@ -3,7 +3,7 @@
 namespace Rafadepaula\Tools\Facades;
 
 use Illuminate\Database\Eloquent\Collection;
-use Rafadepaula\Tools\TableList;
+use Rafadepaula\Tools\Facades\TableList;
 
 trait DefaultCrud
 {
