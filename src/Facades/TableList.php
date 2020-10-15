@@ -1,11 +1,11 @@
 <?php
 
-namespace Rafadepaula\Tools\Facades\Traits;
+namespace Rafadepaula\Tools\Facades;
 
 
 use Illuminate\Database\Eloquent\Collection;
 
-trait Listable
+class TableList
 {
 
 	/**
@@ -16,7 +16,7 @@ trait Listable
 	 * @param array|null $transformation - array de funções para mascarar colunas se necessário (['coluna' => funcao()])
 	 * @return array estruturado para mostrar listagem de registros na tela
 	 */
-	static function prepareTable($data, $headers, $id = 'id', $transformation = null)
+	public static function prepareTable($data, $headers, $id = 'id', $transformation = null)
 	{
 		$result = ['headers' => array_values($headers), 'data' => []];
 		foreach($data as $reg){
@@ -37,5 +37,35 @@ trait Listable
 			$result['data'][] = $row;
 		}
 		return $result;
+	}
+
+	/**
+	 * Cria as opções padrões para a listagem
+	 * 
+	 * @param string $prefix - prefixo para as rotas
+	 */
+	public static function defaultOptions($prefix)
+	{
+		return [
+			['route' => $prefix.'_edit','label' => 'Editar'],
+			[
+				'route' => $prefix.'_delete', 'confirm' => true, 'class' => 'btn-warning',
+				'label' => 'Deletar'
+			]
+		];
+	}
+
+	/**
+	 * Cria uma tabela padrão
+	 * 
+	 * @param Collection $data - dados para a listagem
+	 * @param array $headers - cabeçalho da tabela
+	 * @param string $prefix - prefixo das rotas das opções
+	 */
+	public static function defaultTable($data, $headers, $prefix)
+	{
+		$data = self::prepareTable($data, $headers);
+		$data['options'] = self::defaultOptions($prefix);
+		return $data;
 	}
 }
