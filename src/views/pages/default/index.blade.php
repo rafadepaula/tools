@@ -6,9 +6,9 @@
     @include(
         'elements.header',
         [
-            'icon' => $icon, 'title' => {{$title}}
+            'icon' => $icon, 'title' => $title,
             'description' => '',
-            'options' => {{$options}}
+            'options' => $options
         ]
     )
 @endsection
