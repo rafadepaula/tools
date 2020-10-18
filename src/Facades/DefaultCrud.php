@@ -16,6 +16,8 @@ trait DefaultCrud
 		$this->modelName = strtolower(str_replace('Controller', '', get_class()));
 		$this->modelName = explode('\\', $this->modelName);
 		$this->modelName = $this->modelName[count($this->modelName) - 1];
+		if(!empty($this->routePrefix))
+			$this->modelName = $this->routePrefix;
 		if(empty($this->icon))
 			$this->icon = 'pe-7s-home';
 		if(empty($this->title))
@@ -81,7 +83,7 @@ trait DefaultCrud
 			$type = 'danger';
 		DB::rollBack();
 		flash($message, $type);
-		redirect(URL::previous())->withInput();
+		return redirect(URL::previous())->withInput();
 	}
 
 	public function save(CustomRequest $request, $id = null)
@@ -103,7 +105,7 @@ trait DefaultCrud
 
 		DB::commit();
 		flash('Informações salvas com sucesso.', 'success');
-		redirect()->route($this->modelName.'_index');
+		return redirect()->route($this->modelName.'_index');
 	}
 
 	public function delete($id)
@@ -111,7 +113,7 @@ trait DefaultCrud
 		$model = $this->model::findOrFail($id);
 		$model->delete();
 		flash('Informações deletadas com sucesso.', 'success');
-		redirect()->route($this->modelName.'_index');
+		return redirect()->route($this->modelName.'_index');
 	}
 
 }

@@ -47,7 +47,7 @@ class TableList
 	public static function defaultOptions($prefix)
 	{
 		return [
-			['route' => $prefix.'_edit','label' => 'Editar'],
+			['route' => $prefix.'_form','label' => 'Editar'],
 			[
 				'route' => $prefix.'_delete', 'confirm' => true, 'class' => 'btn-warning',
 				'label' => 'Deletar'
