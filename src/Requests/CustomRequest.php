@@ -7,6 +7,13 @@ use Rafadepaula\Tools\Facades\Functions;
 
 class CustomRequest extends FormRequest
 {
+	public function rules()
+	{
+		return [
+			//
+		];
+	}
+
 	protected function prepareForValidation()
 	{
 		$fields = $this->all();
