@@ -8,7 +8,7 @@
         [
             'icon' => 'pe-7s-users', 'title' => 'Administradores',
             'description' => 'Administradores e moderadores cadastrados',
-            'options' => ['title' => 'Cadastrar novo', 'url' => route('user_add')]
+            'options' => ['title' => 'Cadastrar novo', 'url' => route('user_form')]
         ]
     )
 @endsection
