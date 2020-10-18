@@ -31,4 +31,18 @@ class Gallery extends Model
     {
         return $this->hasMany('App\Media');
     }
+
+    public static function getOrCreate($model){
+
+		$title = 'Galeria de Arquivos';
+		if(!empty($model->title))
+			$title .= ' - '.$model->title;
+		$title .= ' ('.$model->id.')';
+		if ($model->gallery)
+			$gallery = $model->gallery;
+		else
+			$gallery = Gallery::create(['title' => $title]);
+
+		return $gallery;
+	}
 }

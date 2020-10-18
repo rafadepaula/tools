@@ -24,4 +24,15 @@ class Functions
 
 		return $totalSize;
 	}
+
+	public static function moneyToDecimal($string, $sep = '.', $dec = ','){
+		$string = trim(str_replace('R$', '', $string));
+		$string = str_replace($sep, '', $string);
+		$string = str_replace($dec, '.', $string);
+		return $string;
+	}
+
+	public static function decimalToMoney($decimal, $prefix = 'R$ '){
+		return $prefix.number_format($decimal, 2, ',', '.');
+	}
 }

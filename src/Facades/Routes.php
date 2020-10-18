@@ -96,8 +96,8 @@ class Routes
 		$defaultCrud = [
 			'get' => [
 				['', 'index'],
-				['/add', 'add'],
-				['/editar/{id}', 'edit'],
+				['/add', 'form'],
+				['/editar/{id}', 'form'],
 				['/deletar/{id}', 'delete']
 			],
 			'post' => [['/salvar/{id?}', 'save']],

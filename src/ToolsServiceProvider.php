@@ -28,6 +28,7 @@ class ToolsServiceProvider extends ServiceProvider
 			__DIR__.'/views' => resource_path('views'),
 			__DIR__.'/Controllers' => app_path('Http/Controllers'),
 			__DIR__.'/Models' => app_path('Models'),
+			__DIR__.'/Requests' => app_path('Http/Requests'),
 		]);
 		$this->publishes([
 			__DIR__.'/assets' => public_path(),

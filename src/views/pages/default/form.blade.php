@@ -19,7 +19,7 @@
                     <h5 class="card-title">
                         {{$title}}
                     </h5>
-                    <form action="{{route($route, $model->id ?? null)}}" method="post">
+                    <form action="{{route($route.'_save', $model->id ?? null)}}" method="post">
                         @csrf
                         @foreach($fields as $row)
                             <div class="row">
@@ -42,4 +42,6 @@
             </div>
         </div>
     </div>
+
+    @include('elements.form.medias', ['model' => $model, 'route' => $route])
 @endsection
