@@ -37,7 +37,7 @@ trait DefaultCrud
 
 		return view('pages.default.index', [
 			'title' => $this->title, 'icon' =>  $this->icon, 'table' => $table,
-			'options' => ['title' => 'Cadastrar novo', 'url' => route($this->modelName.'_add')]
+			'options' => ['title' => 'Cadastrar novo', 'url' => route($this->modelName.'_form')]
 		]);
 	}
 
@@ -84,7 +84,8 @@ trait DefaultCrud
 		redirect(URL::previous())->withInput();
 	}
 
-	public function save(CustomRequest $request, $id = null){
+	public function save(CustomRequest $request, $id = null)
+	{
 		$this->validateFields($request, $id);
 		$fields = $request->all();
 		DB::beginTransaction();
