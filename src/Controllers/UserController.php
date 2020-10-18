@@ -24,15 +24,9 @@ class UserController extends Controller
 		return view('pages.user.index')->with('users', $users);
 	}
 
-	public function add()
+	public function form($id = null)
 	{
-		return view('pages.user.form')
-			->with('user', new User());
-	}
-
-	public function edit($id)
-	{
-		$user = User::findOrFail($id);
+		$user = !empty($id) ? User::findOrFail($id) : (new User());
 		return view('pages.user.form')
 			->with('user', $user);
 	}
