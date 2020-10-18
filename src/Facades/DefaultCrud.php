@@ -60,7 +60,6 @@ trait DefaultCrud
 		$model = empty($id) ? $this->model : $this->model::findOrFail($id);
 		$fields = $this->formFields();
 		$fields = $this->mapValues($fields, $model);
-
 		$route = $this->modelName;
 		$options = [
 			'title' => 'Voltar para listagem',
@@ -69,7 +68,7 @@ trait DefaultCrud
 		$vars = [
 			'title' => 'Cadastro - '.$this->title,
 			'icon' => $this->icon, 'fields' => $fields,
-			'route' => $route, 'model' => $this->model,
+			'route' => $route, 'model' => $model,
 			'options' => $options
 		];
 		return view('pages.default.form', $vars);
@@ -111,7 +110,18 @@ trait DefaultCrud
 	public function delete($id)
 	{
 		$model = $this->model::findOrFail($id);
+
+		if($this->useMedia && !empty($model->gallery)) {
+			foreach ($model->gallery->medias()->get() as $media) {
+				$this->deleteMedia($media->id);
+			}
+		}
+
 		$model->delete();
+
+		if(!empty($model->gallery))
+			$model->gallery->delete();
+
 		flash('Informações deletadas com sucesso.', 'success');
 		return redirect()->route($this->modelName.'_index');
 	}
