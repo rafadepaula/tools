@@ -61,8 +61,9 @@ class Routes
 				if(!empty($urls)){
 					foreach($urls as $urlOpts){
 						$url = $prefix.$urlOpts[0];
+						$controller = str_replace('_', '', $controller);
 						$action = $controller.'Controller@'.self::dashesToCamelCase($urlOpts[1]);
-						$name = $prefixName.'_'.$urlOpts[1];
+						$name = strtolower($prefixName.'_'.$urlOpts[1]);
 						if($withModel) {
 							Route::{$method}($url, $action)->defaults('model', $model)->name($name);
 							if(self::$debug) {
