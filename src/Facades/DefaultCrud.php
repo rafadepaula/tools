@@ -32,6 +32,14 @@ trait DefaultCrud
 
 	protected abstract function validateFields(CustomRequest $request, $id = null);
 
+	protected function assets(){
+		return [];
+	}
+
+	protected function attachablesFields(){
+		return [];
+	}
+
 	public function index()
 	{
 		$data = $this->model::all();
@@ -69,7 +77,7 @@ trait DefaultCrud
 			'title' => 'Cadastro - '.$this->title,
 			'icon' => $this->icon, 'fields' => $fields,
 			'route' => $route, 'model' => $model,
-			'options' => $options
+			'options' => $options, 'assets' => $this->assets()
 		];
 		return view('pages.default.form', $vars);
 	}
@@ -101,10 +109,39 @@ trait DefaultCrud
 				return $this->errorForm('Erro ao salvar as mídias.');
 			}
 		}
-
+		$this->syncAttach($request, $model);
 		DB::commit();
 		flash('Informações salvas com sucesso.', 'success');
 		return redirect()->route($this->modelName.'_index');
+	}
+
+	private function syncAttach($request, $model){
+		$attachables = $this->attachablesFields();
+		foreach($request->all() as $field => $values){
+			if(array_key_exists($field, $attachables)){
+				$attachModel = $attachables[$field];
+				$ids = $this->syncAttachIds($values, $attachModel);
+				$model->{$field}()->sync($ids);
+			}
+		}
+	}
+
+	private function syncAttachIds($values, $attachModel){
+		$ids = [];
+		if(!empty($values)){
+			if(!is_array($values))
+				$values = [$values];
+			foreach($values as $value){
+				if(!ctype_digit($value)) {
+					$resultAttach = $attachModel::create(['value' => $value]);
+					$resultAttach->save();
+					$ids[] = $resultAttach->id;
+				}else{
+					$ids[] = $value;
+				}
+			}
+		}
+		return $ids;
 	}
 
 	public function delete($id)
