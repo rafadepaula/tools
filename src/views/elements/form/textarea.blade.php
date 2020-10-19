@@ -1,4 +1,4 @@
-<label for="{{$name}}">{{$label}} @if(!empty($required))* @endif</label>
+<label for="{{$name}}">{{$label}} @if(!empty($atts['required']))* @endif</label>
 <textarea class="form-control {{$atts['class'] ?? ''}}" id="{{$atts['id'] ?? $name}}"
           name="{{$name}}"
         @foreach($atts as $att => $valAtt)
