@@ -112,6 +112,8 @@ trait DefaultCrud
 		$this->syncAttach($request, $model);
 		DB::commit();
 		flash('Informações salvas com sucesso.', 'success');
+		if(method_exists($this, 'onSaveSuccess'))
+			$this->onSaveSuccess($model);
 		return redirect()->route($this->modelName.'_index');
 	}
 
