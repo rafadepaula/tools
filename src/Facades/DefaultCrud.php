@@ -66,7 +66,7 @@ trait DefaultCrud
 	public function form(CustomRequest $request, $id = null)
 	{
 		$model = empty($id) ? $this->model : $this->model::findOrFail($id);
-		$fields = $this->formFields();
+		$fields = $this->formFields($model);
 		$fields = $this->mapValues($fields, $model);
 		$route = $this->modelName;
 		$options = [
@@ -112,8 +112,6 @@ trait DefaultCrud
 		$this->syncAttach($request, $model);
 		DB::commit();
 		flash('Informações salvas com sucesso.', 'success');
-		if(method_exists($this, 'onSaveSuccess'))
-			$this->onSaveSuccess($model);
 		return redirect()->route($this->modelName.'_index');
 	}
 
@@ -154,6 +152,10 @@ trait DefaultCrud
 			foreach ($model->gallery->medias()->get() as $media) {
 				$this->deleteMedia($media->id);
 			}
+		}
+
+		foreach($this->attachablesFields() as $relation => $class){
+			$model->{$relation}()->sync([]);
 		}
 
 		$model->delete();
