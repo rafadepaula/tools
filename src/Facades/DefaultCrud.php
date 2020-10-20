@@ -156,6 +156,10 @@ trait DefaultCrud
 			}
 		}
 
+		foreach($this->attachablesFields() as $relation => $class){
+			$model->{$relation}()->sync([]);
+		}
+
 		$model->delete();
 
 		if(!empty($model->gallery))
