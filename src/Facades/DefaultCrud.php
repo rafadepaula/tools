@@ -40,10 +40,18 @@ trait DefaultCrud
 		return [];
 	}
 
+	protected function options()
+	{
+		return null;
+	}
+
 	public function index()
 	{
 		$data = $this->model::all();
 		$table = TableList::defaultTable($data, $this->headers, $this->modelName);
+		if(!empty($this->options()))
+			$table['options'] = $this->options();
+
 
 		return view('pages.default.index', [
 			'title' => $this->title, 'icon' =>  $this->icon, 'table' => $table,
