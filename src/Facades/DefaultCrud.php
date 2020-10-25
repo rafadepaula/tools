@@ -118,6 +118,8 @@ trait DefaultCrud
 			}
 		}
 		$this->syncAttach($request, $model);
+		if(method_exists($this, 'beforeSaveSuccess'))
+			$this->beforeSaveSuccess($model, $request);
 		DB::commit();
 		flash('Informações salvas com sucesso.', 'success');
 		if(method_exists($this, 'onSaveSuccess'))
