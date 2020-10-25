@@ -28,7 +28,7 @@ trait DefaultCrud
 			$this->useMedia = false;
 	}
 
-	protected abstract function formFields();
+	protected abstract function formFields($model);
 
 	protected abstract function validateFields(CustomRequest $request, $id = null);
 
@@ -74,7 +74,7 @@ trait DefaultCrud
 	public function form(CustomRequest $request, $id = null)
 	{
 		$model = empty($id) ? $this->model : $this->model::findOrFail($id);
-		$fields = $this->formFields();
+		$fields = $this->formFields($model);
 		$fields = $this->mapValues($fields, $model);
 		$route = $this->modelName;
 		$options = [
