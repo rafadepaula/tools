@@ -35,4 +35,12 @@ class Functions
 	public static function decimalToMoney($decimal, $prefix = 'R$ '){
 		return $prefix.number_format($decimal, 2, ',', '.');
 	}
+
+	public static function removeArrayValue(array $array, $value)
+	{
+		$index = array_search($value, $array);
+		if($index !== false)
+			unset($array[$index]);
+		return $array;
+	}
 }
