@@ -15,7 +15,7 @@ class Functions
 	 */
 	public static function calcStorageUsage($folder = ''){
 		$totalSize = 0;
-		$files = Storage::files($folder);
+		$files = Storage::allFiles($folder);
 		foreach($files as $file) {
 			$totalSize += Storage::size($file); // bytes
 		}
