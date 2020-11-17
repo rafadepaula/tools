@@ -171,7 +171,7 @@ trait DefaultCrud
 			if(!is_array($values))
 				$values = [$values];
 			foreach($values as $value){
-				$resultAttach = $attachModel::findOrNew(['value' => $value]);
+				$resultAttach = $attachModel::firstOrNew(['value' => $value]);
 				$ids[] = $resultAttach->id;
 			}
 		}
