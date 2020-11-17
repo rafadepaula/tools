@@ -124,15 +124,24 @@ trait DefaultCrud
 		flash('Informações salvas com sucesso.', 'success');
 		if(method_exists($this, 'onSaveSuccess'))
 			$this->onSaveSuccess($model, $request);
-		return redirect()->route($this->modelName.'_index');
+		return redirect()->route($this->modelName.'_form', $model->id);
 	}
 
 	private function syncAttach($request, $model){
 		$attachables = $this->attachablesFields();
 		foreach($request->all() as $field => $values){
 			if(array_key_exists($field, $attachables)){
-				$attachModel = $attachables[$field];
-				$ids = $this->syncAttachIds($values, $attachModel);
+				$attachableInfo = $attachables[$field];
+				if(is_array($attachableInfo)) {
+					$attachModel = $attachableInfo['model'];
+					if ($attachableInfo['type'] == 'value')
+						$ids = $this->syncAttachIdsByValue($values, $attachModel);
+					else
+						$ids = $this->syncAttachIds($values, $attachModel);
+				}else{
+					$ids = $this->syncAttachIds($values, $attachableInfo);
+				}
+
 				$model->{$field}()->sync($ids);
 			}
 		}
@@ -151,6 +160,19 @@ trait DefaultCrud
 				}else{
 					$ids[] = $value;
 				}
+			}
+		}
+		return $ids;
+	}
+
+	private function syncAttachIdsByValue($values, $attachModel){
+		$ids = [];
+		if(!empty($values)){
+			if(!is_array($values))
+				$values = [$values];
+			foreach($values as $value){
+				$resultAttach = $attachModel::findOrNew(['value' => $value]);
+				$ids[] = $resultAttach->id;
 			}
 		}
 		return $ids;
