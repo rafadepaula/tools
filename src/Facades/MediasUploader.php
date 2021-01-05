@@ -32,13 +32,25 @@ trait MediasUploader
 		return true;
 	}
 
-	public function uploadImages($request)
+	public function uploadImages($request, $path = 'medias', $originalName = false)
 	{
 		$files = [];
 		if(!empty($request->medias)) {
+			if(!is_array($request->medias))
+				$request->medias = [$request->medias];
 			foreach ($request->medias as $media) {
 				if ($media->isValid()) {
-					$upload = $media->store('medias');
+					if($originalName){
+						$i = 0;
+						$filename = $media->getClientOriginalName();
+						while(Storage::disk('public')->exists($path.'/'.$filename)){
+							$i++;
+							$filename = '('.$i.')'.$media->getClientOriginalName();
+						}
+						$upload = $media->storeAs($path, $filename);
+					}else{
+						$upload = $media->store($path);
+					}
 					$files[] = new Media(['content' => $upload, 'type' => 'I']);
 				}
 			}
