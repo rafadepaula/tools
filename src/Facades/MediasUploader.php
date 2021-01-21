@@ -32,7 +32,7 @@ trait MediasUploader
 		return true;
 	}
 
-	public function uploadImages($request, $path = 'medias', $originalName = false)
+	public function uploadImages($request, $path = 'medias', $originalName = true, $alt = '')
 	{
 		$files = [];
 		if(!empty($request->medias)) {
@@ -51,7 +51,7 @@ trait MediasUploader
 					}else{
 						$upload = $media->store($path);
 					}
-					$files[] = new Media(['content' => $upload, 'type' => 'I']);
+					$files[] = new Media(['content' => $upload, 'type' => 'I', 'alt' => $alt, 'title' => $alt]);
 				}
 			}
 		}
