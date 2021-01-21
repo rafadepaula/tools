@@ -12,12 +12,12 @@ trait MediasUploader
 {
 	public $useMedia = true;
 
-	public function saveMedias($request, $model)
+	public function saveMedias($request, $model, $alt = '')
 	{
 		if (!empty($request->medias) || !empty($request->mediaFiles)) {
 			$gallery = Gallery::getOrCreate($model);
 
-			$imagesUpload = $this->uploadImages($request);
+			$imagesUpload = $this->uploadImages($request, 'medias', true, $alt);
 			$filesUpload = $this->uploadFiles($request);
 			$files = array_merge($imagesUpload, $filesUpload);
 
