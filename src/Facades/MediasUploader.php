@@ -41,12 +41,9 @@ trait MediasUploader
 			foreach ($request->medias as $media) {
 				if ($media->isValid()) {
 					if($originalName){
-						$i = 0;
 						$filename = $media->getClientOriginalName();
-						while(Storage::disk('public')->exists($path.'/'.$filename)){
-							$i++;
-							$filename = '('.$i.')'.$media->getClientOriginalName();
-						}
+						if(Storage::disk('public')->exists($path.'/'.$filename))
+							Storage::disk('public')->delete($path.'/'.$filename);
 						$upload = $media->storeAs($path, $filename);
 					}else{
 						$upload = $media->store($path);
