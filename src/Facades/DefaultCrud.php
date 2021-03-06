@@ -197,6 +197,9 @@ trait DefaultCrud
 		if(!empty($model->gallery))
 			$model->gallery->delete();
 
+		if(method_exists($this, 'onDeleteSuccess'))
+			$this->onDeleteSuccess($model);
+
 		flash('Informações deletadas com sucesso.', 'success');
 		return redirect()->route($this->modelName.'_index');
 	}
