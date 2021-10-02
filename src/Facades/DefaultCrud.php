@@ -103,6 +103,10 @@ trait DefaultCrud
 
 	public function save(CustomRequest $request, $id = null)
 	{
+		if(method_exists($this, 'beforeSave')) {
+			$this->beforeSave($id, $request);
+		}
+		
 		$this->validateFields($request, $id);
 		$fields = $request->all();
 		DB::beginTransaction();
